@@ -17,6 +17,7 @@ import auth.ProfileFactory;
 import auth.Roles;
 import auth.oidc.admin.AdOidcProvider;
 import auth.oidc.applicant.IdcsOidcProvider;
+import auth.oidc.applicant.GenericOidcProvider;
 import auth.saml.LoginRadiusSamlProvider;
 import com.google.common.collect.ImmutableMap;
 import com.google.inject.AbstractModule;
@@ -131,6 +132,11 @@ public class SecurityModule extends AbstractModule {
         bind(IndirectClient.class)
             .annotatedWith(ApplicantAuthClient.class)
             .toProvider(LoginRadiusSamlProvider.class);
+        break;
+      case GENERIC_OIDC_APPLICANT:
+        bind(IndirectClient.class)
+            .annotatedWith(ApplicantAuthClient.class)
+            .toProvider(GenericOidcProvider.class);
         break;
       case IDCS_APPLICANT:
       default:
