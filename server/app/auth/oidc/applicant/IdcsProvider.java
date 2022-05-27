@@ -50,6 +50,6 @@ public class IdcsProvider extends OidcProvider {
 
   @Override
   public ProfileCreator getProfileAdapter(OidcConfiguration config, OidcClient client) {
-    return new IdcsProfileAdapter(config, client, configuration, profileFactory, applicantRepositoryProvider);
+    return new IdcsProfileAdapter(config, client, profileFactory, applicantRepositoryProvider);
   }
 }

@@ -4,6 +4,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import auth.ProfileFactory;
 import auth.oidc.applicant.IdcsProfileAdapter;
+import auth.oidc.OidcProfileAdapter;
 
 import com.google.common.collect.ImmutableList;
 import java.util.Optional;

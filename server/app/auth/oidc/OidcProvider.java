@@ -7,7 +7,6 @@ import java.util.Collections;
 
 import javax.inject.Provider;
 
-import com.google.inject.Inject;
 import com.typesafe.config.Config;
 
 import org.pac4j.core.http.callback.PathParameterCallbackUrlResolver;
@@ -40,7 +39,6 @@ public abstract class OidcProvider implements Provider<OidcClient> {
   protected String responseModeConfigName = "response_mode";
   protected String extraScopesConfigName = "additional_scopes";
 
-  @Inject
   public OidcProvider(
       Config configuration,
       ProfileFactory profileFactory,

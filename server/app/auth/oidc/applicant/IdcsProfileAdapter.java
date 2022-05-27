@@ -36,12 +36,12 @@ public class IdcsProfileAdapter extends OidcApplicantProfileAdapter {
   public IdcsProfileAdapter(
       OidcConfiguration configuration,
       OidcClient client,
-      Config app_configuration,
       ProfileFactory profileFactory,
       Provider<UserRepository> applicantRepositoryProvider) {
-    super(configuration, client, app_configuration, profileFactory, applicantRepositoryProvider);
+    super(configuration, client, /* app_configuration= */ null, profileFactory, applicantRepositoryProvider);
   }
 
+  // Manually specify all app_configuration params.
   @Override
   protected String attributePrefix() {
     return "idcs";
@@ -65,6 +65,11 @@ public class IdcsProfileAdapter extends OidcApplicantProfileAdapter {
   @Override
   protected String getSecondNameAttributeName() {
     return "user_displayname";
+  }
+
+  @Override
+  protected String getConfigurationValue(String attr, String defaultValue) {
+    return "";
   }
 
   @Override

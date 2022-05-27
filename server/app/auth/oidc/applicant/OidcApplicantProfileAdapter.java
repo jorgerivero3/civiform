@@ -35,7 +35,6 @@ import repository.UserRepository;
  */
 public abstract class OidcApplicantProfileAdapter extends OidcProfileAdapter {
 
-  private static final Logger logger = LoggerFactory.getLogger(OidcApplicantProfileAdapter.class);
   protected final Config app_configuration;
 
   protected final String localeAttributeConfigName = "locale_attribute";
@@ -50,7 +49,7 @@ public abstract class OidcApplicantProfileAdapter extends OidcProfileAdapter {
       ProfileFactory profileFactory,
       Provider<UserRepository> applicantRepositoryProvider) {
     super(configuration, client, profileFactory, applicantRepositoryProvider);
-    this.app_configuration = Preconditions.checkNotNull(app_configuration);
+    this.app_configuration = app_configuration;
   }
 
   /*
@@ -132,6 +131,7 @@ public abstract class OidcApplicantProfileAdapter extends OidcProfileAdapter {
     return profile.getAccount().join().getMemberOfGroup().isPresent();
   }
 
+  @Override
   protected ImmutableSet<Roles> roles(CiviFormProfile profile, OidcProfile oidcProfile) {
     if (isTrustedIntermediary(profile)) {
       return ImmutableSet.of(Roles.ROLE_APPLICANT, Roles.ROLE_TI);
@@ -150,6 +150,7 @@ public abstract class OidcApplicantProfileAdapter extends OidcProfileAdapter {
   }
 
   /** Merge the two provided profiles into a new CiviFormProfileData. */
+  @Override
   protected CiviFormProfileData mergeCiviFormProfile(
       CiviFormProfile civiformProfile, OidcProfile oidcProfile) {
     final String locale = getLocale(oidcProfile);
