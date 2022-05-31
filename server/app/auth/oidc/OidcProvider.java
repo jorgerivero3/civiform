@@ -16,6 +16,8 @@ import org.pac4j.oidc.config.OidcConfiguration;
 
 import auth.ProfileFactory;
 import repository.UserRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * This class provides the base applicant OIDC implementation.
@@ -25,6 +27,7 @@ import repository.UserRepository;
  */
 public abstract class OidcProvider implements Provider<OidcClient> {
 
+  private static final Logger logger = LoggerFactory.getLogger(OidcProvider.class);
   protected final Config configuration;
   protected final ProfileFactory profileFactory;
   protected final Provider<UserRepository> applicantRepositoryProvider;
@@ -128,10 +131,18 @@ public abstract class OidcProvider implements Provider<OidcClient> {
     String responseType = getResponseType();
     String callbackURL = getCallbackURL();
     String providerName = getProviderName(); // optional
-
     if (clientID.isEmpty() || clientSecret.isEmpty() ||
         discoveryURI.isEmpty() || responseMode.isEmpty() ||
         responseType.isEmpty() || callbackURL.isEmpty()) {
+      logger.error("Can't get OIDC client, data is missing");
+      logger.warn("Provider data:\n" +
+          "clientID=" + clientID + "\n" +
+          "clientSecret=" + clientSecret + "\n" +
+          "discoveryURI=" + discoveryURI + "\n" +
+          "responseMode=" + responseMode + "\n" +
+          "responseType=" + responseType + "\n" +
+          "callbackURL=" + callbackURL + "\n" +
+          "providerName=" + providerName);
       return null;
     }
     OidcConfiguration config = new OidcConfiguration();
