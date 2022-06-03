@@ -183,11 +183,11 @@ public class AdminProgramController extends CiviFormController {
   public Result copy(Request request, long programId) {
     //TODO: Logic for copying the current program 
     //Get program object
-    ProgramForm program = programForm.bindFromRequest(request).get();
+
     //extract title from program object 
-    String programTitle = program.getLocalizedDisplayName();
+
     //edit title to include "Copy of "
-    String newTitle = "Copy of " + programTitle
+    // String newTitle = "Copy of " + programTitle;
     //create new program with all details
 
     //push new program 
