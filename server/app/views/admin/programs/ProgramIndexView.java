@@ -203,7 +203,8 @@ public final class ProgramIndexView extends BaseHtmlView {
                 maybeRenderManageTranslationsLink(draftProgram),
                 maybeRenderEditLink(draftProgram, activeProgram, request),
                 maybeRenderViewApplicationsLink(activeProgram, profile),
-                renderManageProgramAdminsLink(draftProgram, activeProgram))
+                renderManageProgramAdminsLink(draftProgram, activeProgram),
+                renderCopyProgramLink(draftProgram, activeProgram, request))
             .withClasses(Styles.FLEX, Styles.TEXT_SM, Styles.W_FULL);
 
     Tag innerDiv =
@@ -338,4 +339,22 @@ public final class ProgramIndexView extends BaseHtmlView {
         .setStyles(Styles.MR_2)
         .asAnchorText();
   }
+
+  Tag renderCopyProgramLink(
+    Optional<ProgramDefinition> draftProgram,
+    Optional<ProgramDefinition> activeProgram,
+    Http.Request request) {
+      long programId =
+      draftProgram.isPresent() ? draftProgram.get().id() : activeProgram.orElseThrow().id();
+      String copyProgramText = "Duplicate Program →";
+      String copyProgram = controllers.admin.routes.AdminProgramController.copy(programId).url();
+
+  return new LinkElement()
+    .setId("program-copy-link-" + programId)
+    .setText(copyProgramText)
+    .setHref(copyProgram)
+    .setStyles(Styles.MR_2)
+    .asAnchorText();
+}
+
 }
